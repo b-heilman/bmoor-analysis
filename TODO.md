@@ -1,0 +1,3 @@
+- Conditionals: only do this if this is true
+- Have ability to reset calculations
+- Duplicate values coming from a feed might be legit for some types
