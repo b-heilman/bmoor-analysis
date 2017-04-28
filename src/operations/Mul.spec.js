@@ -21,8 +21,8 @@ describe('bmoor-analysis.operations.Mul', function(){
 
 		expect( v.value ).toBe( 40 );
 
-		v.result(function( val ){
-			expect( val ).toBe( 90 );
+		v.result(function( datum ){
+			expect( datum.value ).toBe( 90 );
 			done();
 		});
 		

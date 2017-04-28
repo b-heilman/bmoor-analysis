@@ -57,11 +57,16 @@ class Pipeline {
 	}
 
 	flush(){
-		var adapters = this.adapters;
+		if ( this._flushing ){
+			clearTimeout( this._flushing );
+		}
 
-		Object.keys( adapters ).forEach(function( key ){
-			adapters[ key ].go();
-		});
+		// allow all the changes to bubble up
+		this._flushing = setTimeout( () => {
+			Object.keys( this.adapters ).forEach( ( key ) => {
+				this.adapters[ key ].go();
+			});
+		}, 5 );
 	}
 }
 

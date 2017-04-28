@@ -9,25 +9,28 @@ class Adapter extends bmoor.Eventing {
 		this.value = src.value;
 		this.stack = [];
 
-		src.result( ( v ) => {
-			this.stack.push( v );
+		src.result( ( datum ) => {
+			this.stack.push( datum );
 
 			pipeline.flush( this );
 		});
 	}
 
 	go(){
-		var v;
+		var datum;
 
 		if ( this.stack.length ){
-			v = this.stack.shift();
+			datum = this.stack.shift();
 
-			if ( this.value !== v ){
-				this.value = v;
-				this.trigger( 'update', this.value );
-			}
+			this.value = datum.value;
+
+			// pass the datum through
+			this.trigger( 'update', datum );
 		}else{
-			this.trigger( 'update', this.value );
+			this.trigger( 'update', {
+				stale: true,
+				value: this.value
+			});
 		}
 	}
 

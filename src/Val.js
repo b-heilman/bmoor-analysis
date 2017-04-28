@@ -21,7 +21,10 @@ class Val extends bmoor.Eventing {
 
 		if ( !('value' in this) || v !== this.value ){
 			this.value = v;
-			this.trigger( 'update', v );
+			this.trigger( 'update', {
+				stale: false,
+				value: v
+			});
 		}
 	}
 
