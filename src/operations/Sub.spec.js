@@ -21,8 +21,8 @@ describe('bmoor-analysis.operations.Sub', function(){
 
 		expect( v.value ).toBe( -18 );
 
-		v.result(function( val ){
-			expect( val ).toBe( -27 );
+		v.result(function( datum ){
+			expect( datum.value ).toBe( -27 );
 			done();
 		});
 		

@@ -18,8 +18,9 @@ describe('bmoor-analysis.Equation', function(){
 
 		expect( v.value ).toBe( 2 );
 
-		v.result(function( val ){
-			expect( val ).toBe( 3 );
+		v.result(function( datum ){
+			expect( datum.value ).toBe( 3 );
+			expect( datum.stale ).toBe( false );
 			done();
 		});
 		
@@ -39,8 +40,9 @@ describe('bmoor-analysis.Equation', function(){
 
 			expect( v.value ).toBe( 8 );
 
-			v.result(function( val ){
-				expect( val ).toBe( 10 );
+			v.result(function( datum ){
+				expect( datum.value ).toBe( 10 );
+				expect( datum.stale ).toBe( false );
 				done();
 			});
 			
@@ -61,12 +63,14 @@ describe('bmoor-analysis.Equation', function(){
 
 			expect( v.value ).toBe( -12 );
 
-			v.result(function( val ){
-				expect( val ).toBe( 9 );
+			v.result(function( datum ){
+				expect( datum.value ).toBe( 9 );
+				expect( datum.stale ).toBe( false );
+				
 				done();
 			});
 			
-			feed.add({ x:3, y:7, z: 1 });
+			feed.add({ x:2, y:8, z: 1 });
 		});
 
 		it('should take an equation as a child', function( done ){
@@ -82,11 +86,39 @@ describe('bmoor-analysis.Equation', function(){
 							.op('add','feed::y')
 					)
 					.op('sub','feed::z');
-
+			
 			expect( v.value ).toBe( -12 );
 
-			v.result(function( val ){
-				expect( val ).toBe( 9 );
+			v.result(function( datum ){
+				expect( datum.value ).toBe( 9 );
+				expect( datum.stale ).toBe( false );
+				
+				done();
+			});
+			
+			feed.add({ x:2, y:8, z: 1 });
+		});
+
+		it('should take an equation as a child - sanity', function( done ){
+			var feed = new Feed([
+					{ x: 1, y: 5, z:10 },
+					{ x: 2, y: 6, z:20 }
+				]),
+				eq = new Equation({
+					'feed': feed 
+				}),
+				v = eq.equals(
+						eq.equals('feed::x')
+							.op('add','feed::y')
+					)
+					.op('sub','feed::z');
+			
+			expect( v.value ).toBe( -12 );
+
+			v.result(function( datum ){
+				expect( datum.value ).toBe( 9 );
+				expect( datum.stale ).toBe( false );
+				
 				done();
 			});
 			

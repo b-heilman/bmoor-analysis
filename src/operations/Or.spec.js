@@ -21,8 +21,8 @@ describe('bmoor-analysis.operations.Or', function(){
 
 		expect( v.value ).toBe( true );
 
-		v.result(function( val ){
-			expect( val ).toBe( true );
+		v.result(function( datum ){
+			expect( datum.value ).toBe( true );
 			done();
 		});
 		
@@ -35,8 +35,8 @@ describe('bmoor-analysis.operations.Or', function(){
 
 		expect( v.value ).toBe( true );
 
-		v.result(function( val ){
-			expect( val ).toBe( true );
+		v.result(function( datum ){
+			expect( datum.value ).toBe( true );
 			done();
 		});
 		
@@ -49,8 +49,8 @@ describe('bmoor-analysis.operations.Or', function(){
 
 		expect( v.value ).toBe( true );
 
-		v.result(function( val ){
-			expect( val ).toBe( false );
+		v.result(function( datum ){
+			expect( datum.value ).toBe( false );
 			done();
 		});
 		

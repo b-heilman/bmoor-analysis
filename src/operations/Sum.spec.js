@@ -20,8 +20,8 @@ describe('bmoor-analysis.operations.Sum', function(){
 
 		expect( v.value ).toBe( 7 );
 
-		v.result(function( val ){
-			expect( val ).toBe( 10 );
+		v.result(function( datum ){
+			expect( datum.value ).toBe( 10 );
 			done();
 		});
 		
@@ -35,10 +35,10 @@ describe('bmoor-analysis.operations.Sum', function(){
 
 		expect( v.value ).toBe( 7 );
 
-		v.result(function( val ){
+		v.result(function( datum ){
 			called = true;
 
-			expect( val ).toBe( 7 );
+			expect( datum.value ).toBe( 7 );
 			done();
 		});
 		
